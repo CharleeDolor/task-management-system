@@ -1,7 +1,7 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/manage-task">Manage Task</router-link>
   </nav>
   <router-view/>
 </template>
@@ -26,5 +26,17 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+button {
+    margin: 0.5rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 0.5rem;
 }
 </style>
