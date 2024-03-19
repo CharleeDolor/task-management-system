@@ -1,14 +1,15 @@
 <template>
   <div>
-    <h1>Manage Task</h1>
-    <!-- <TaskModal></TaskModal> -->
-    <button type="button" class="btn" @click="showModal">
-      Add Task
-    </button>
+    <div>
+      <h1>Manage Task</h1> 
+      <button type="button" class="btn" @click="showModal">
+        Add Task
+      </button>
+    </div>
+
 
     <TaskModal v-show="isModalVisible" action="Add Task" :tasks=this.tasks @close="closeModal" />
-
-    <TaskList/>
+    <TaskList />
   </div>
 </template>
 
@@ -23,7 +24,7 @@ export default {
     TaskList
   },
 
-  data(){
+  data() {
     return {
       isModalVisible: false,
       tasks: this.$tasks,

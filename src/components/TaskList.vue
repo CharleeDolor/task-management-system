@@ -8,12 +8,12 @@
             :isUpdate=true
             @close="closeModal" />
 
-        <h3>All tasks</h3>
-        <table>
+        <h3 v-if="(this.tasks.length > 0)">All tasks</h3>
+        <table v-if="(this.tasks.length > 0)">
             <tr>
                 <th>Task Name</th>
                 <th>Task Deadline</th>
-                <th>Urgency</th>
+                <th>Urgency Level</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -35,6 +35,7 @@
                 </td>
             </tr>
         </table>
+        <h2 v-else>Go to Manage Task and click 'Add Task' button to add a new task</h2>
     </div>
 </template>
 
