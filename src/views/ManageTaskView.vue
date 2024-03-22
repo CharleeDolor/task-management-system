@@ -9,7 +9,7 @@
 
 
     <TaskModal v-show="isModalVisible" action="Add Task" :tasks=this.tasks @close="closeModal" />
-    <TaskList />
+    <TaskList :isManage=true></TaskList>
   </div>
 </template>
 

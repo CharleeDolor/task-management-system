@@ -1,11 +1,7 @@
 <template>
     <div class="taskList">
 
-        <TaskModal v-if="isModalVisible" 
-            action="Update"
-            :tasks=this.tasks
-            :index=this.index
-            :isUpdate=true
+        <TaskModal v-if="isModalVisible" action="Update" :tasks=this.tasks :index=this.index :isUpdate=true
             @close="closeModal" />
 
         <h3 v-if="(this.tasks.length > 0)">All tasks</h3>
@@ -15,20 +11,19 @@
                 <th>Task Deadline</th>
                 <th>Urgency Level</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th v-if="this.isManage">Action</th>
             </tr>
 
-            <tr 
-                v-for="(task, index) in this.tasks"
-                v-bind:key="index"
-                @click="showModal(index)">
+            <tr v-for="(task, index) in this.tasks" v-bind:key="index" @click="showModal(index)">
 
                 <td>{{ task.taskName }}</td>
                 <td>{{ task.taskDate }}</td>
                 <td>{{ task.taskPriority }}</td>
+
                 <td v-if="task.taskStatus">Finished</td>
                 <td v-else>Not Finished</td>
-                <td v-on:click.stop="">
+
+                <td v-on:click.stop="" v-if="this.isManage">
                     <button @click="deleteTask(index)">
                         Delete
                     </button>
@@ -48,6 +43,12 @@ export default {
         TaskModal
     },
 
+    props:{
+        isManage: {
+            type: Boolean
+        }
+    },
+
     data() {
         return {
             tasks: this.$tasks,
@@ -59,6 +60,17 @@ export default {
     methods: {
 
         showModal(index) {
+            /**
+            * check if taskStatus is true
+            */
+            if (this.tasks[this.index].taskStatus) {
+                /**
+                 * exit the execution, 
+                 * this means that finished tasks cannot be updated
+                 */
+                alert("Finished tasks cannot be updated.");
+                return;
+            }
             this.index = index;
             this.isModalVisible = true;
         },
