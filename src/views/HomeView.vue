@@ -12,10 +12,6 @@ export default {
 
   name: 'HomeView',
 
-  beforeMount(){
-    
-  },
-
   components:{
     TaskList
   }

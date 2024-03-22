@@ -7,13 +7,13 @@
                 </slot>
             </header>
 
-            <section class="modal-body">
+            <section class="modal-body" v-if="this.isManage">
                 <slot name="body">
                     <input type="text" v-model="taskName" id="txtTaskName" placeholder="Task Name">
                 </slot>
             </section>
 
-            <section class="modal-body">
+            <section class="modal-body" v-if="this.isManage">
                 <slot name="body">
                     <select name="taskPriority" id="taskPriority" v-model="taskPriority">
                         <option value="">Classify Prioritization</option>
@@ -23,14 +23,14 @@
                 </slot>
             </section>
 
-            <footer class="modal-footer">
+            <footer class="modal-footer" v-if="this.isManage">
                 <slot name="footer">
                     <label for="dtDueDate">Due Date:</label>
                     <input type="date" id="dtDueDate" v-model="taskDate">
                 </slot>
             </footer>
 
-            <footer class="modal-footer" v-if="this.isUpdate">
+            <footer class="modal-footer" v-if="this.isUpdate && this.isManage == false">
                 <slot name="footer">
                     <label for="taskStatus">Status</label>
                     <input type="checkbox" v-model="this.taskStatus">
@@ -67,6 +67,10 @@ export default {
 
         isUpdate:{
             type: Boolean
+        },
+
+        isManage:{
+            type: Boolean
         }
     },
 
@@ -76,7 +80,7 @@ export default {
             taskDate: '',
             taskPriority: '',
             taskStatus: false,
-            tasks: this.$tasks
+            tasks: this.$tasks,
         }
     },
 

@@ -1,7 +1,11 @@
 <template>
     <div class="taskList">
 
-        <TaskModal v-if="isModalVisible" action="Update" :tasks=this.tasks :index=this.index :isUpdate=true
+        <TaskModal v-if="isModalVisible" action="Update" 
+            :tasks=this.tasks 
+            :index=this.index 
+            :isUpdate=true
+            :isManage="this.isManage"
             @close="closeModal" />
 
         <h3 v-if="(this.tasks.length > 0)">All tasks</h3>
@@ -44,7 +48,7 @@ export default {
     },
 
     props:{
-        isManage: {
+        isManage:{
             type: Boolean
         }
     },
@@ -53,8 +57,12 @@ export default {
         return {
             tasks: this.$tasks,
             isModalVisible: false,
-            index: 0
+            index: 0,
         }
+    },
+
+    beforeMount(){
+
     },
 
     methods: {

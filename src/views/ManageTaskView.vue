@@ -7,9 +7,13 @@
       </button>
     </div>
 
+    <TaskList :isManage="this.isManage"></TaskList>
 
-    <TaskModal v-show="isModalVisible" action="Add Task" :tasks=this.tasks @close="closeModal" />
-    <TaskList :isManage=true></TaskList>
+    <TaskModal v-show="isModalVisible" action="Add Task" 
+      :tasks=this.tasks 
+      :isManage="this.isManage"
+      @close="closeModal" />
+    
   </div>
 </template>
 
@@ -28,13 +32,15 @@ export default {
     return {
       isModalVisible: false,
       tasks: this.$tasks,
+      isManage: false
     }
   },
 
+  beforeMount(){
+    this.isManage = true;
+  },
+
   methods: {
-
-
-
     showModal() {
       this.isModalVisible = true;
     },
