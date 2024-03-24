@@ -1,7 +1,7 @@
 <template>
     <div class="taskList">
 
-        <task-details v-if="isModalVisible" action="Update" 
+        <TaskDetails v-if="isModalVisible" action="Update" 
             :tasks=this.tasks
             :index=this.index
             :isUpdate=true
@@ -50,8 +50,13 @@
 </template>
 
 <script>
+import TaskDetails from './TaskDetails.vue';
 
 export default {
+
+    components:{
+        TaskDetails
+    },
 
     props: {
         isManage: {

@@ -9,7 +9,7 @@
 
     <task-list :isManage="this.isManage"/>
 
-    <task-details v-show="isModalVisible" action="Add Task" 
+    <TaskDetails v-show="isModalVisible" action="Add Task" 
       :tasks=this.tasks 
       :isManage="this.isManage"
       @close="closeModal" />
@@ -18,8 +18,13 @@
 </template>
 
 <script>
+import TaskDetails from '@/components/TaskDetails.vue';
 
 export default {
+  components:{
+    TaskDetails
+  },
+
   data() {
     return {
       isModalVisible: false,
