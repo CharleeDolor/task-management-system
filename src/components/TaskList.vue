@@ -1,7 +1,7 @@
 <template>
     <div class="taskList">
 
-        <task-model v-if="isModalVisible" action="Update" 
+        <task-details v-if="isModalVisible" action="Update" 
             :tasks=this.tasks
             :index=this.index
             :isUpdate=true

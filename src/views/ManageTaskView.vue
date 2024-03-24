@@ -9,7 +9,7 @@
 
     <task-list :isManage="this.isManage"/>
 
-    <task-model v-show="isModalVisible" action="Add Task" 
+    <task-details v-show="isModalVisible" action="Add Task" 
       :tasks=this.tasks 
       :isManage="this.isManage"
       @close="closeModal" />
