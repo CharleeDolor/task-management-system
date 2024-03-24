@@ -39,11 +39,6 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
-    created(){
-      console.log(this.$options.components['task-model']);
-
-      console.log(this.$options.components['task-list']);
-    }
   }
 }
 </script>

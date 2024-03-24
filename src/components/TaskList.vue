@@ -112,9 +112,6 @@ export default {
                 alert("Delete cancelled");
             }
         },
-        created(){
-            console.log(this.$options.components['task-model']);
-        }
     }
 }
 </script>

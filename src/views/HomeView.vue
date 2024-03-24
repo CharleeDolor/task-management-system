@@ -9,10 +9,5 @@
 
 export default {
   name: 'HomeView',
-  methods:{  
-    created() {
-      console.log(this.$options.components['task-list']);
-    }
-  }
 }
 </script>
