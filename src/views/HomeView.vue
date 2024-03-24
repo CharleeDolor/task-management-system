@@ -7,6 +7,7 @@
 <script>
 
 export default {
+
   name: 'HomeView',
   methods:{  
     created() {
@@ -14,4 +15,5 @@ export default {
     }
   }
 }
+
 </script>
