@@ -2,30 +2,31 @@
     <div class="taskList">
 
         <TaskModal v-if="isModalVisible" action="Update" 
-            :tasks=this.tasks 
-            :index=this.index 
+            :tasks=this.tasks
+            :index=this.index
             :isUpdate=true
-            :isManage="this.isManage"
-            @close="closeModal" />
+            :isManage="this.isManage" 
+        @close="closeModal" />
 
-        <h3 v-if="(this.tasks.length > 0)">All tasks</h3>
+        <h2 v-if="(this.tasks.length > 0)">All tasks</h2>
+        <h3>Completed Tasks: {{ this.totalCompleted }}</h3>
+        <h3>Total Tasks: {{ this.totalTasks }}</h3>
+
         <table v-if="(this.tasks.length > 0)">
             <tr>
                 <th>Task Name</th>
-                <th>Task Deadline</th>
-                <th>Urgency Level</th>
+                <th>Task Description</th>
                 <th>Status</th>
                 <th v-if="this.isManage">Action</th>
             </tr>
 
-            <tr v-for="(task, index) in this.tasks" v-bind:key="index" @click="showModal(index)">
+            <tr v-for="(task, index) in this.tasks" :key="index" @click="showModal(index)">
 
                 <td>{{ task.taskName }}</td>
-                <td>{{ task.taskDate }}</td>
-                <td>{{ task.taskPriority }}</td>
+                <td>{{ task.taskDescription }}</td>
 
-                <td v-if="task.taskStatus">Finished</td>
-                <td v-else>Not Finished</td>
+                <td v-if="task.taskStatus">Completed</td>
+                <td v-else>Not Complete</td>
 
                 <td v-on:click.stop="" v-if="this.isManage">
                     <button @click="deleteTask(index)">
@@ -47,8 +48,8 @@ export default {
         TaskModal
     },
 
-    props:{
-        isManage:{
+    props: {
+        isManage: {
             type: Boolean
         }
     },
@@ -57,11 +58,21 @@ export default {
         return {
             tasks: this.$tasks,
             isModalVisible: false,
-            index: 0,
+            index: null
         }
     },
 
-    beforeMount(){
+    computed: {
+        totalCompleted() {
+            return this.tasks.filter(task => task.taskStatus == true).length;
+        },
+
+        totalTasks() {
+            return this.tasks.length;
+        }
+    },
+
+    beforeMount() {
 
     },
 
@@ -71,7 +82,7 @@ export default {
             /**
             * check if taskStatus is true
             */
-            if (this.tasks[this.index].taskStatus) {
+            if (this.tasks[index].taskStatus) {
                 /**
                  * exit the execution, 
                  * this means that finished tasks cannot be updated
@@ -82,6 +93,7 @@ export default {
             this.index = index;
             this.isModalVisible = true;
         },
+
         closeModal() {
             this.isModalVisible = false;
         },
@@ -115,5 +127,22 @@ export default {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 0.5rem;
+}
+
+h3{
+    margin: 0.2rem
+}
+
+tr:not(:first-child):hover {
+    background-color: yellowgreen;
+    cursor: pointer;
 }
 </style>

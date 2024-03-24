@@ -15,25 +15,14 @@
 
             <section class="modal-body" v-if="this.isManage">
                 <slot name="body">
-                    <select name="taskPriority" id="taskPriority" v-model="taskPriority">
-                        <option value="">Classify Prioritization</option>
-                        <option value="Urgent">Urgent</option>
-                        <option value="Normal">Normal</option>
-                    </select>
+                    <input type="text" name="taskDescription" placeholder="Task Description" id="taskDescription" v-model="taskDescription">
                 </slot>
             </section>
-
-            <footer class="modal-footer" v-if="this.isManage">
-                <slot name="footer">
-                    <label for="dtDueDate">Due Date:</label>
-                    <input type="date" id="dtDueDate" v-model="taskDate">
-                </slot>
-            </footer>
 
             <footer class="modal-footer" v-if="this.isUpdate && this.isManage == false">
                 <slot name="footer">
                     <label for="taskStatus">Status</label>
-                    <input type="checkbox" v-model="this.taskStatus">
+                    <input type="checkbox" v-model="taskStatus">
                 </slot>
             </footer>
 
@@ -78,7 +67,7 @@ export default {
         return {
             taskName: '',
             taskDate: '',
-            taskPriority: '',
+            taskDescription: '',
             taskStatus: false,
             tasks: this.$tasks,
         }
@@ -87,8 +76,7 @@ export default {
     beforeMount(){
         if(this.isUpdate){
             this.taskName = this.tasks[this.index].taskName;
-            this.taskDate = this.tasks[this.index].taskDate;
-            this.taskPriority = this.tasks[this.index].taskPriority;
+            this.taskDescription = this.tasks[this.index].taskDescription;
             this.taskStatus = this.tasks[this.index].taskStatus;
         }
     },
@@ -108,19 +96,32 @@ export default {
              *  if true, then modal is in add task mode
              */
             if (this.action === "Add Task") {
-                if (this.taskName && this.taskDate && this.taskPriority) {
+                if (this.taskName && this.taskDescription) {
+
+                    let isExist = false;
+                    //check if task is already exist
+                    this.tasks.forEach(element => {
+                        if(element.taskName.toLowerCase() === this.taskName.toLowerCase()){
+                            isExist = true;
+                        }
+                    });
+
+                    if(isExist){
+                        alert("Task already exist");
+                        return;
+                    }
+                    
                     this.tasks.push({
                         taskName: this.taskName,
-                        taskDate: this.taskDate,
-                        taskPriority: this.taskPriority,
+                        taskDescription: this.taskDescription,
                         taskStatus: false
                     });
 
-                    this.$tasks = this.tasks;
+                    this.$tasks = this.task;
+
                     alert("Task " + this.taskName + " created");
                     this.taskName = '',
-                    this.taskDate ='',
-                    this.taskPriority ='',
+                    this.taskDescription ='',
                     this.close();
                     return;
 
@@ -137,13 +138,12 @@ export default {
              */
             if(this.action === "Update"){
                 if( this.taskName &&
-                    this.taskDate &&
-                    this.taskPriority
+                    this.taskDescription
                 ){
-                    this.tasks[this.index].taskName = this.taskName;
-                    this.tasks[this.index].taskDate = this.taskDate;
-                    this.tasks[this.index].taskPriority = this.taskPriority;
-                    this.tasks[this.index].taskStatus = this.taskStatus;
+                    this.$tasks[this.index].taskName = this.taskName;
+                    this.$tasks[this.index].taskDescription = this.taskDescription;
+                    this.$tasks[this.index].taskStatus = this.taskStatus;
+
                     alert("Updated Successfully");
                     this.close();
                     return;
@@ -238,7 +238,7 @@ input[type=text] {
     font-size: 1rem;
 }
 
-#taskPriority {
+#taskDescription {
     font-size: 1rem;
 }
 </style>

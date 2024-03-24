@@ -33,10 +33,4 @@ button {
     font-size: 1rem;
     padding: 0.5rem;
 }
-
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  padding: 0.5rem;
-}
 </style>
