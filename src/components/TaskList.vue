@@ -58,13 +58,13 @@ export default {
     },
 
     computed: {
+        totalTasks() {
+            return this.tasks.length;
+        },
+
         totalCompleted() {
             return this.tasks.filter(task => task.taskStatus == true).length;
         },
-
-        totalTasks() {
-            return this.tasks.length;
-        }
     },
 
     beforeMount() {

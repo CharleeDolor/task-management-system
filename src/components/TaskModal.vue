@@ -140,10 +140,12 @@ export default {
                 if( this.taskName &&
                     this.taskDescription
                 ){
-                    this.$tasks[this.index].taskName = this.taskName;
-                    this.$tasks[this.index].taskDescription = this.taskDescription;
-                    this.$tasks[this.index].taskStatus = this.taskStatus;
+                    this.tasks[this.index].taskName = this.taskName;
+                    this.tasks[this.index].taskDescription = this.taskDescription;
+                    this.tasks[this.index].taskStatus = this.taskStatus;
 
+                    this.$tasks = this.tasks;
+                    
                     alert("Updated Successfully");
                     this.close();
                     return;
