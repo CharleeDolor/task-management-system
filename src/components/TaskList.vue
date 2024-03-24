@@ -1,7 +1,7 @@
 <template>
     <div class="taskList">
 
-        <TaskModal v-if="isModalVisible" action="Update" 
+        <task-model v-if="isModalVisible" action="Update" 
             :tasks=this.tasks
             :index=this.index
             :isUpdate=true
@@ -40,13 +40,8 @@
 </template>
 
 <script>
-import TaskModal from '@/components/TaskModal.vue';
 
 export default {
-
-    components: {
-        TaskModal
-    },
 
     props: {
         isManage: {
@@ -116,6 +111,9 @@ export default {
             } else {
                 alert("Delete cancelled");
             }
+        },
+        created(){
+            console.log(this.$options.components['task-model']);
         }
     }
 }

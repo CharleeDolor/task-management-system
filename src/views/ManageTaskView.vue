@@ -7,9 +7,9 @@
       </button>
     </div>
 
-    <TaskList :isManage="this.isManage"></TaskList>
+    <task-list :isManage="this.isManage"/>
 
-    <TaskModal v-show="isModalVisible" action="Add Task" 
+    <task-model v-show="isModalVisible" action="Add Task" 
       :tasks=this.tasks 
       :isManage="this.isManage"
       @close="closeModal" />
@@ -18,16 +18,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import TaskModal from '@/components/TaskModal.vue';
-import TaskList from '@/components/TaskList.vue';
 
 export default {
-  components: {
-    TaskModal,
-    TaskList
-  },
-
   data() {
     return {
       isModalVisible: false,
@@ -47,6 +39,11 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
+    created(){
+      console.log(this.$options.components['task-model']);
+
+      console.log(this.$options.components['task-list']);
+    }
   }
 }
 </script>

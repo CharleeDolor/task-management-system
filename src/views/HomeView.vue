@@ -1,20 +1,17 @@
 <template>
   <div class="home">
-    <TaskList></TaskList>
-
+    <task-list></task-list>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import TaskList from '@/components/TaskList.vue';
 
 export default {
-
   name: 'HomeView',
-
-  components:{
-    TaskList
+  methods:{  
+    created() {
+      console.log(this.$options.components['task-list']);
+    }
   }
 }
 </script>
