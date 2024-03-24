@@ -2,7 +2,7 @@
   <div>
     <div>
       <h1>Manage Task</h1> 
-      <button type="button" class="btn" @click="showModal">
+      <button type="button" class="btn-green" @click="showModal">
         Add Task
       </button>
     </div>

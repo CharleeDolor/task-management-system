@@ -21,7 +21,7 @@
 
             <footer class="modal-footer" v-if="this.isUpdate && this.isManage == false">
                 <slot name="footer">
-                    <label for="taskStatus">Status</label>
+                    <label for="taskStatus">Mark as Done:</label>
                     <input type="checkbox" v-model="taskStatus">
                 </slot>
             </footer>
