@@ -1,6 +1,8 @@
 <template>
+    <!-- Task list container -->
     <div class="taskList">
 
+        <!-- TaskDetails component for updating tasks -->
         <TaskDetails v-if="isModalVisible" action="Update" 
             :tasks=this.tasks
             :index=this.index
@@ -8,14 +10,18 @@
             :isManage="this.isManage" 
         @close="closeModal" />
 
+        <!-- Heading for all tasks -->
         <h2 v-if="(this.tasks.length > 0)">All tasks</h2>
 
+        <!-- Task progress section -->
         <div class="task-progress">
             <h3>Completed Tasks: {{ this.totalCompleted }}</h3>
             <h3>Total Tasks: {{ this.totalTasks }}</h3>
         </div>
         
+        <!-- Table wrapper -->
         <div class="table-wrapper">
+            <!-- Table displaying tasks -->
             <table v-if="(this.tasks.length > 0)" class="fl-table">
                 <thead>
                     <tr>
@@ -27,14 +33,17 @@
                 </thead>
 
                 <tbody>
+                    <!-- Iterate over tasks -->
                     <tr v-for="(task, index) in this.tasks" :key="index" @click="showModal(index)">
 
-                        <td>{{ task.taskName }}</td>
-                        <td>{{ task.taskDescription }}</td>
+                        <td>{{ task.taskName }}</td> <!-- Display task name -->
+                        <td>{{ task.taskDescription }}</td> <!-- Display task description -->
 
+                        <!-- Display task status -->
                         <td v-if="task.taskStatus">Completed</td>
                         <td v-else>Not Complete</td>
 
+                        <!-- Action column for managing tasks -->
                         <td v-on:click.stop="" v-if="this.isManage">
                             <button @click="deleteTask(index)" class="btn-red ">
                                 Delete
@@ -44,6 +53,7 @@
                 </tbody>
             </table>
     
+            <!-- Message if there are no tasks -->
             <h2 v-else>Go to Manage Task and click 'Add Task' button to add a new task</h2>
         </div>
     </div>
@@ -89,14 +99,9 @@ export default {
     methods: {
 
         showModal(index) {
-            /**
-            * check if taskStatus is true
-            */
+            // Check if task is completed
             if (this.tasks[index].taskStatus) {
-                /**
-                 * exit the execution, 
-                 * this means that finished tasks cannot be updated
-                 */
+                // Alert if task is completed and cannot be updated
                 alert("Finished tasks cannot be updated.");
                 return;
             }
@@ -109,12 +114,9 @@ export default {
         },
 
         deleteTask(index) {
-            /**
-             * if taskStatus is !false,
-             *  this means that this task is not done yet
-             *  and will not be able to delete
-             */
+            // Check if task is incomplete
             if (!this.tasks[index].taskStatus) {
+                // Alert if task is incomplete and cannot be deleted
                 alert("Task is unfinished");
                 return;
             }
@@ -132,6 +134,7 @@ export default {
 </script>
 
 <style scoped>
+/* Styles for task list */
 .taskList {
     display: flex;
     flex-direction: column;
@@ -144,16 +147,19 @@ h3{
     letter-spacing: 1px;
 }
 
+/* Styles for task progress section */
 .task-progress h3 {
     text-align: right;
     margin-right: 90px;
 }
 
+/* Styles for table wrapper */
 .table-wrapper {
     margin: 10px 70px 70px;
     box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
 }
 
+/* Styles for table */
 .fl-table {
     border-radius: 5px;
     font-size: 12px;
@@ -195,6 +201,5 @@ h3{
 .fl-table tr:nth-child(even) {
     background: #F8F8F8;
 }
-
 
 </style>

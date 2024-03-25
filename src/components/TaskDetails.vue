@@ -1,36 +1,47 @@
 <template>
+    <!-- Modal backdrop -->
     <div class="modal-backdrop">
+        <!-- Modal -->
         <div class="modal">
+            <!-- Modal header -->
             <header class="modal-header">
+                <!-- Slot for header -->
                 <slot name="header">
-                    <h3>{{ this.action }}</h3>
+                    <h3>{{ this.action }}</h3> <!-- Displaying action -->
                 </slot>
             </header>
 
+            <!-- Modal body for managing tasks -->
             <section class="modal-body" v-if="this.isManage">
+                <!-- Slot for body -->
                 <slot name="body">
                     <input type="text" v-model="taskName" id="txtTaskName" placeholder="Task Name">
                 </slot>
             </section>
 
+            <!-- Modal body for managing tasks -->
             <section class="modal-body" v-if="this.isManage">
+                <!-- Slot for body -->
                 <slot name="body">
                     <input type="text" name="taskDescription" placeholder="Task Description" id="taskDescription" v-model="taskDescription">
                 </slot>
             </section>
 
+            <!-- Modal footer for updating tasks -->
             <footer class="modal-footer" v-if="this.isUpdate && this.isManage == false">
+                <!-- Slot for footer -->
                 <slot name="footer">
                     <label for="taskStatus">Mark as Done:</label>
                     <input type="checkbox" v-model="taskStatus">
                 </slot>
             </footer>
 
-            <button type="button" class="btn-green" 
-            @click="bindAction()">
+            <!-- Save button -->
+            <button type="button" class="btn-green" @click="bindAction()">
                 Save
             </button>
 
+            <!-- Cancel button -->
             <button type="button" class="btn-red" @click="close">
                 Cancel
             </button>
@@ -75,6 +86,7 @@ export default {
 
     beforeMount(){
         if(this.isUpdate){
+            // Populate fields with task details for update mode
             this.taskName = this.tasks[this.index].taskName;
             this.taskDescription = this.tasks[this.index].taskDescription;
             this.taskStatus = this.tasks[this.index].taskStatus;
@@ -83,23 +95,24 @@ export default {
 
     methods: {
         close() {
+            // Emit close event
             this.$emit('close');
         },
 
         /**
-         * method for binding action based on the value of this.action
+         * Method for binding action based on the value of this.action
          */
         bindAction(){
 
             /**
              * Check if this.action is Add Task
-             *  if true, then modal is in add task mode
+             * if true, then modal is in add task mode
              */
             if (this.action === "Add Task") {
                 if (this.taskName && this.taskDescription) {
 
                     let isExist = false;
-                    //check if task is already exist
+                    // Check if task already exists
                     this.tasks.forEach(element => {
                         if(element.taskName.toLowerCase() === this.taskName.toLowerCase()){
                             isExist = true;
@@ -107,10 +120,11 @@ export default {
                     });
 
                     if(isExist){
-                        alert("Task already exist");
+                        alert("Task already exists");
                         return;
                     }
                     
+                    // Add new task
                     this.tasks.push({
                         taskName: this.taskName,
                         taskDescription: this.taskDescription,
@@ -134,12 +148,13 @@ export default {
 
             /**
              * If this.action === "Update",
-             *  this means that modal is in update mode
+             * this means that modal is in update mode
              */
             if(this.action === "Update"){
                 if( this.taskName &&
                     this.taskDescription
                 ){
+                    // Update task details
                     this.tasks[this.index].taskName = this.taskName;
                     this.tasks[this.index].taskDescription = this.taskDescription;
                     this.tasks[this.index].taskStatus = this.taskStatus;
@@ -158,6 +173,7 @@ export default {
 </script>
 
 <style>
+/* Styles for modal */
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -179,6 +195,7 @@ export default {
     padding: 1.5rem;
 }
 
+/* Styles for modal header and footer */
 .modal-header,
 .modal-footer {
     padding: 15px;
@@ -204,11 +221,13 @@ export default {
     padding: 1.5rem;
 }
 
+/* Styles for modal body */
 .modal-body {
     position: relative;
     padding: 20px 10px;
 }
 
+/* Styles for buttons */
 .btn-close {
     position: absolute;
     top: 0;
@@ -236,6 +255,7 @@ export default {
     border-radius: 2px;
 }
 
+/* Styles for input fields */
 input[type=text] {
     font-size: 1rem;
 }
